@@ -1,0 +1,51 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+struct triangles
+{
+	double a, b, c, s, p;
+};
+
+int main()
+{
+	const int t = 3;	//кол-во треугольников
+	triangles triangle[t];	//3 треугольника - массив структур
+
+	double p, sum = 0;	//p - полупериметр
+	int maxSqNumber = 0;
+
+	cout << "Enter a sides: a, b, c" << endl;
+	for (int i = 0; i < t; i++)
+	{
+		//ввод данных
+		cout << "Triangle " << i + 1 << endl;
+		cin >> triangle[i].a >> triangle[i].b >> triangle[i].c;
+
+		//периметр
+		triangle[i].p = triangle[i].a + triangle[i].b + triangle[i].c;
+		sum += triangle[i].p;
+		p = triangle[i].p / 2;
+
+		//площадь
+		triangle[i].s = sqrt((p * (p - triangle[i].a) * (p - triangle[i].b) * (p - triangle[i].c)));
+		//проверка на максимум
+		static double maxSquare = 0;
+		if (triangle[i].s > maxSquare)
+		{
+			maxSquare = triangle[i].s;
+			maxSqNumber = i + 1;
+		}
+	}
+	
+	//вывод
+	if (maxSqNumber == 0) {
+		cout << "Triangles are quals!" << endl;
+	}
+	else {
+		cout << "Max square in: " << maxSqNumber << endl;
+	}
+	cout << "Sum of perimeters is: " << sum << endl;
+	
+	return 0;
+}
